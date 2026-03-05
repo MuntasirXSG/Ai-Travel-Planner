@@ -1,0 +1,98 @@
+🔎 What Went Wrong
+
+"command": r"C:\Program Files\nodejs\npx.cmd",  must add the path of npx (it was fixed later after solving the conda and python version issue . no need to add path )
+1️⃣ McpError: Connection closed
+
+Your Airbnb MCP server kept failing during initialization.
+
+The server would start, then the connection would immediately close.
+
+It looked like an MCP or Node issue — but it wasn’t.
+
+2️⃣ Python 3.14 Compatibility Problem
+
+You were running the project on Python 3.14.
+
+MCP + langchain_mcp_adapters is not fully stable on Python 3.14 yet.
+
+Python 3.14 has changes in asyncio and subprocess handling.
+
+That broke stdio pipe communication between Python and the MCP server.
+
+Result → server started → pipe broke → Connection closed.
+
+3️⃣ Anaconda Interference
+
+Your environment was partially using Anaconda Python.
+
+Even when inside a venv, some core libraries were being loaded from:
+
+C:\Users\PC\anaconda3\
+
+Anaconda modifies:
+
+asyncio
+
+subprocess behavior
+
+environment handling
+
+MCP relies on very clean stdio pipes.
+
+Mixing Anaconda + venv + asyncio on Windows caused instability.
+
+4️⃣ uv Was Also Using Anaconda Python
+
+When creating the venv with uv, it showed:
+
+Using CPython at: C:\Users\PC\anaconda3\python.exe
+
+So even new environments were still tied to Anaconda.
+
+That meant the problem persisted.
+
+✅ How We Fixed It
+✔ Step 1 — Installed Python 3.12
+
+Installed official CPython 3.12 from python.org.
+
+3.12 is stable with MCP and asyncio.
+
+✔ Step 2 — Created Clean Virtual Environment
+
+Created a new .venv using Python 3.12.
+
+Ensured it was NOT using Anaconda.
+
+Verified:
+
+python --version → 3.12.x
+where python → .venv\Scripts\python.exe
+✔ Step 3 — Reinstalled Dependencies
+
+Used:
+
+uv pip install -r requirements.txt
+✔ Step 4 — Set Correct Windows Event Loop
+
+Used:
+
+asyncio.WindowsSelectorEventLoopPolicy()
+
+instead of Proactor.
+
+🎯 Final Root Cause
+
+It was a combination of:
+
+❌ Python 3.14 (too new)
+
+❌ Anaconda interfering with asyncio/subprocess
+
+❌ Windows stdio pipe sensitivity
+
+After switching to:
+
+✅ Python 3.12 + clean venv (no Anaconda) + correct event loop
+
+Everything worked perfectly.

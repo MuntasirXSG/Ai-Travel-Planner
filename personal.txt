@@ -1,0 +1,1 @@
+ for activating the uv venv    run this in terminal  : F:/WORK/GENAI/ai-agents/.venv/Scripts/Activate.ps1

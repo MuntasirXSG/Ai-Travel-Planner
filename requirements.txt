@@ -1,0 +1,11 @@
+langchain>=0.2.0
+langchain-core>=0.2.0
+langchain-community>=0.2.0
+langchain-mcp-adapters
+mcp>=1.0.0
+langchain-groq
+langgraph
+ollama
+dotenv
+ipykernel
+streamlit

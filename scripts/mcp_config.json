@@ -1,0 +1,19 @@
+{
+    "airbnb": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@openbnb/mcp-server-airbnb",
+        "--ignore-robots-txt"
+      ],
+      "transport": "stdio"
+    },
+    
+     "google-calendar": {
+      "command": "npx",
+      "args": ["@cocal/google-calendar-mcp"],
+      "env": {
+        "GOOGLE_OAUTH_CREDENTIALS": "~/.gmail-mcp/gcp-oauth.keys.json"
+      }
+    }
+  }

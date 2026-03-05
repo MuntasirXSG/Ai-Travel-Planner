@@ -13,7 +13,8 @@
       "command": "npx",
       "args": ["@cocal/google-calendar-mcp"],
       "env": {
-        "GOOGLE_OAUTH_CREDENTIALS": "~/.gmail-mcp/gcp-oauth.keys.json"
-      }
+        "GOOGLE_OAUTH_CREDENTIALS": "C:\\Users\\PC\\.gmail-mcp\\gcp-oauth.keys.json" 
+      },
+      "transport": "stdio"
     }
   }

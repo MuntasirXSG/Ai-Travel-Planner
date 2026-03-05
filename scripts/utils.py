@@ -11,7 +11,7 @@ def load_mcp_config(*servers):
             return all_config
         for name in servers:
             if name in all_config:
-                selected_config['name'] = all_config['name']
+                selected_config[name] = all_config[name]
         return selected_config
 
 

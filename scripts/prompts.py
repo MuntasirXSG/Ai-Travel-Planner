@@ -61,7 +61,7 @@ def get_travel_planner_prompt():
     If the user provides a `maxPrice`, ensure it is treated as an integer (e.g., 2000), not as a string.
 - Search Airbnb listings immediately when user asks for accommodations
 - Use defaults: adults=2, no dates if not specified
-- Present top 5 results with link: https://www.airbnb.com/rooms/{listing_id}
+- Present top 5 results with link: https://www.airbnb.com/rooms/{{listing_id}}
 - Use web_search for attractions, events, or travel info
 - Use get_weather to check destination weather
 - Be proactive, don't ask for details unless search fails

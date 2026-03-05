@@ -1,0 +1,58 @@
+Issue Summary: Groq + Google Calendar MCP create-event
+
+MCP Tools Load
+
+Your travel planner loads tools from Airbnb and Google Calendar MCP servers.
+
+One of the Google Calendar tools is create-event (used to add events to your calendar).
+
+JSON Schema Validation
+
+Each MCP tool has a JSON Schema that defines the parameters it expects.
+
+For create-event, this includes attendees → email.
+
+Invalid Regex
+
+The schema uses a complex regex pattern to validate emails:
+
+^(?!\\\.)(?!.*\\\.\\\.)([A-Za-z0-9_\'\+\-\\.]*)
+[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
+
+This regex is not valid JSON Schema regex (fails draft-07 validation).
+
+Groq Strictness
+
+Groq (ChatGroq) strictly validates inputs against the JSON Schema of every tool.
+
+When it sees the invalid regex in create-event, it throws a BadRequestError and stops execution.
+
+Conflict
+
+The conflict is:
+
+Your code and MCP tools are fine.
+
+Groq is strict about JSON Schema validation, so it rejects the tool even before it’s called.
+
+This does not happen if you use other LLMs (like OpenAI’s GPT) because they don’t enforce schema validation strictly.
+
+Impact
+
+You cannot use create-event tool with Groq until the regex is fixed.
+
+Other tools (Airbnb, weather, web search) work fine.
+
+Solutions
+
+Update MCP to the latest version (may fix regex).
+
+Patch regex in params.json of create-event to a simpler valid pattern.
+
+Skip create-event when loading tools if you want to run your planner immediately.
+
+Use a different LLM instead of Groq to avoid strict schema validation.
+
+💡 In short:
+
+Groq is very strict about JSON schema. The create-event tool has an invalid regex for email. Groq refuses to run it, causing errors. Other LLMs would not have this problem.

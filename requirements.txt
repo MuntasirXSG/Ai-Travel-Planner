@@ -9,3 +9,4 @@ ollama
 dotenv
 ipykernel
 streamlit
+langchain-google-genai

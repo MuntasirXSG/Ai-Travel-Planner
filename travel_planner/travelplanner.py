@@ -9,7 +9,7 @@ sys.path.append(root)
 from dotenv import load_dotenv
 
 load_dotenv()
-
+from langchain_google_genai import ChatGoogleGenerativeAI
 from scripts import utils 
 from langchain_groq import ChatGroq
 from langchain.agents import create_agent
@@ -23,11 +23,11 @@ load_dotenv()
 
 
 # Initialize Groq LLM
-llm = ChatGroq(
-    model="llama-3.3-70b-versatile",
-    temperature=0.7
-)
-
+# llm = ChatGroq(
+#     model="openai/gpt-oss-120b",
+#     temperature=0.7                #########  groq doesnt work with google mcp 
+# )
+llm= ChatGoogleGenerativeAI(model="gemini-2.5-flash")
 checkpointer = InMemorySaver()
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy()) #it was suggested 
@@ -43,13 +43,14 @@ async def get_tools():
    print(f"Loaded tools:\n{[tool.name for tool in tools]}")
    return tools
 
-prompt=''''''
+
 
 async def planner(query, thread_id="user"):
+    prompt= prompts.get_travel_planner_prompt()
     tools = await get_tools()
     agent = create_agent(model=llm, tools=tools, system_prompt=prompt, checkpointer=checkpointer)
     config = {'configurable':{'thread_id' : thread_id}}
-    output= len(tools)
+   
     
     result = await agent.ainvoke({"messages":[HumanMessage(query)]}, config=config)
 

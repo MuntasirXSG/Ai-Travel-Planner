@@ -10,3 +10,9 @@ dotenv
 ipykernel
 streamlit
 langchain-google-genai
+e2b_code_interpreter
+matplotlib
+openpyxl
+fastmcp 
+yfinance
+pandas

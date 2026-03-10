@@ -26,7 +26,10 @@ llm = ChatGroq(
     model="llama-3.3-70b-versatile",
     temperature=0.7
 )
-if sys.platform == "win32":
+if sys.platform ==  "win32":
+
+
+
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy()) #it was suggested 
     sys.stdout.reconfigure(encoding="utf-8")
 async def get_tools():

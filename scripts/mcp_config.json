@@ -1,20 +1,39 @@
 {
-    "airbnb": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@openbnb/mcp-server-airbnb",
-        "--ignore-robots-txt"
-      ],
-      "transport": "stdio"
+  "airbnb": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@openbnb/mcp-server-airbnb",
+      "--ignore-robots-txt"
+    ],
+    "transport": "stdio"
+  },
+  "google-calendar": {
+    "command": "npx",
+    "args": [
+      "@cocal/google-calendar-mcp"
+    ],
+    "env": {
+      "GOOGLE_OAUTH_CREDENTIALS": "C:\\Users\\PC\\.gmail-mcp\\gcp-oauth.keys.json"
     },
-    
-     "google-calendar": {
-      "command": "npx",
-      "args": ["@cocal/google-calendar-mcp"],
-      "env": {
-        "GOOGLE_OAUTH_CREDENTIALS": "C:\\Users\\PC\\.gmail-mcp\\gcp-oauth.keys.json" 
-      },
-      "transport": "stdio"
-    }
+    "transport": "stdio"
+  },
+  "google-sheets": {
+    "command": "uvx",
+    "args": [
+      "mcp-google-sheets@latest"
+    ],
+    "env": {
+      "CREDENTIALS_PATH": "C:\\Users\\PC\\.gmail-mcp\\gcp-oauth.keys.json",
+      "TOKEN_PATH": "C:\\Users\\PC\\.gmail-mcp\\token.json"
+    },
+    "transport": "stdio"
+  },
+  "yahoo-finance": {
+    "command": "uvx",
+    "args": [
+      "yahoo-finance-mcp-server"
+    ],
+    "transport": "stdio"
   }
+}

@@ -5,3 +5,5 @@
  set GOOGLE_OAUTH_CREDENTIALS=C:\\Users\\PC\\.gmail-mcp\\gcp-oauth.keys.json  . no need to add "" around path in cmd 
 
 npx @cocal/google-calendar-mcp auth
+
+to  load streamlit using uv: python -m streamlit run app.py

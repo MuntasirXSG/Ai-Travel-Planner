@@ -8,7 +8,5 @@ wheels/
 
 # Virtual environments
 .venv
-.env
+
 ai_codeexecution_sandbox_agent
-hotel_finer
-travel_planner
